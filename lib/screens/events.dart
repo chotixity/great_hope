@@ -6,7 +6,7 @@ class Events extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('See whats in store for you in GH coming days'),
+      child: Text('Upcoming events in GH'),
     );
   }
 }

@@ -37,7 +37,10 @@ class HomepageCard extends StatelessWidget {
                         thickness: 1,
                         color: theme.primaryColor,
                       ),
-                      Text(time)
+                      Text(
+                        time,
+                        style: const TextStyle(fontSize: 16),
+                      )
                     ],
                   ),
                 ),

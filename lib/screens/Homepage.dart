@@ -32,8 +32,8 @@ class GHHomepage extends StatelessWidget {
                 ),
                 HomepageCard(
                   'Choir Practice',
-                  'Every Sunday \n And Friday',
-                  'From 2pm to 4pm\n from 5pm To 7pm',
+                  'Every Sunday \n From 2pm to 4pm',
+                  'Every Friday \n From 5pm To 7pm',
                 )
               ],
             ),
@@ -42,7 +42,7 @@ class GHHomepage extends StatelessWidget {
             height: 20,
           ),
           Text(
-            'Monthly events',
+            'Other events',
             style: TextStyle(
               color: theme.primaryColor,
               fontSize: 18,
@@ -76,7 +76,19 @@ class GHHomepage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Image.asset('assets/images/Rectangle 16.png'),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Flexible(
+              child: Wrap(
+                spacing: 30,
+                children: [
+                  Image.asset('assets/images/Rectangle 16.png'),
+                  Image.asset('assets/images/image6.png'),
+                  Image.asset('assets/images/image6.png'),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

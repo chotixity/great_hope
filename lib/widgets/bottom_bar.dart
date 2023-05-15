@@ -35,11 +35,18 @@ class _HomepageState extends State<Homepage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.grey,
         title: Text(
           'The Great Hope Ministry',
           style: TextStyle(color: theme.primaryColor),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.notifications_active)),
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.more_vert_outlined)),
+        ],
       ),
       body: widgetOptions.elementAt(_selectedindex),
       bottomNavigationBar: BottomNavigationBar(
