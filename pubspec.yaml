@@ -62,6 +62,10 @@ flutter:
   assets:
     - assets/images/Rectangle 16.png
     - assets/images/image6.png
+    - assets/images/book-1.png
+    - assets/images/book-2.png
+    - assets/images/book-3.png
+    - assets/images/book-4.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

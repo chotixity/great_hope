@@ -27,6 +27,7 @@ class HomepageCard extends StatelessWidget {
                 ),
                 IntrinsicHeight(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         days,

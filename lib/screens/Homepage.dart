@@ -82,9 +82,18 @@ class GHHomepage extends StatelessWidget {
               child: Wrap(
                 spacing: 30,
                 children: [
-                  Image.asset('assets/images/Rectangle 16.png'),
-                  Image.asset('assets/images/image6.png'),
-                  Image.asset('assets/images/image6.png'),
+                  Image.asset(
+                    'assets/images/Rectangle 16.png',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.asset(
+                    'assets/images/image6.png',
+                    fit: BoxFit.cover,
+                  ),
+                  Image.asset(
+                    'assets/images/image6.png',
+                    fit: BoxFit.cover,
+                  ),
                 ],
               ),
             ),
