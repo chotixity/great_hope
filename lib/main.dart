@@ -1,11 +1,15 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-import 'screens/first_screen.dart';
+import 'Auth/Login.dart';
 import './screens/splash_screen.dart';
 import 'widgets/bottom_bar.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -19,6 +23,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'GH',
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: 'Lato',
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 20),
@@ -30,10 +35,18 @@ class MyApp extends StatelessWidget {
         duration: 2000,
         backgroundColor: const Color.fromRGBO(253, 3, 63, .8),
         splash: const SplashScreen(),
-        nextScreen: const Homescreen(),
+        nextScreen: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, AsyncSnapshot<User?> snapshot) {
+              if (snapshot.hasData) {
+                return const Homepage();
+              } else {
+                return const Homescreen();
+              }
+            }),
       ),
       routes: {
-        Homepage.routeName: (context) => Homepage(),
+        Homepage.routeName: (context) => const Homepage(),
       },
     );
   }

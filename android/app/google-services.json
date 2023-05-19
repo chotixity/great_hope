@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1030258182554",
+    "project_id": "great-hope",
+    "storage_bucket": "great-hope.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030258182554:android:47e1fde080ca3322aa9223",
+        "android_client_info": {
+          "package_name": "com.melkychoti.great_hope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030258182554-lo11im6e52037it4n459sut2biphbmq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHXJ5CYLmehU-YWO6UA0GEiJA_ONUWszU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030258182554-lo11im6e52037it4n459sut2biphbmq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

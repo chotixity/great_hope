@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:text_divider/text_divider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../widgets/custom_button.dart';
 import '../widgets/bottom_bar.dart';
+import 'Auth.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
+
+  @override
+  State<Homescreen> createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _emailcontroller = TextEditingController();
+  final _passwordcontroller = TextEditingController();
+
+  void dispose() {
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +45,7 @@ class Homescreen extends StatelessWidget {
               height: 50,
             ),
             TextField(
+              controller: _emailcontroller,
               decoration: InputDecoration(
                 labelText: 'Email',
                 border: OutlineInputBorder(
@@ -40,6 +58,7 @@ class Homescreen extends StatelessWidget {
               height: 20,
             ),
             TextField(
+              controller: _passwordcontroller,
               decoration: InputDecoration(
                 suffixIcon: const Icon(Icons.remove_red_eye),
                 labelText: 'Password',
@@ -61,12 +80,12 @@ class Homescreen extends StatelessWidget {
                 style: TextStyle(color: theme.primaryColor),
               ),
             ),
-            CustomButtton(
-              'Login',
-              () {
-                Navigator.pushNamed(context, Homepage.routeName);
-              },
-            ),
+            CustomButtton('Login', () async {
+              await _auth.signInWithEmailAndPassword(
+                email: _emailcontroller.text.trim(),
+                password: _passwordcontroller.text.trim(),
+              );
+            }),
             const SizedBox(
               height: 20,
             ),

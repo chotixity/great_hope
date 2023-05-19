@@ -28,13 +28,14 @@ class _HomepageState extends State<Homepage> {
 
     final List<Widget> widgetOptions = [
       const GHHomepage(),
-      const Events(),
+      //const Events(),
       const Add(),
       const Library(),
     ];
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.grey,
         title: Text(

@@ -21,10 +21,10 @@ class GHHomepage extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children: const [
+              children: [
                 HomepageCard(
                   'Bible Study',
                   'Every Monday \n And Tuesday',
