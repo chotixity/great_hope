@@ -4,6 +4,7 @@ import '../screens/Homepage.dart';
 import '../screens/library.dart';
 import '../screens/events.dart';
 import '../screens/add.dart';
+import 'Drawer.dart';
 
 class Homepage extends StatefulWidget {
   static const routeName = '/Homepage';
@@ -40,15 +41,21 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.grey,
         title: Text(
           'The Great Hope Ministry',
-          style: TextStyle(color: theme.primaryColor),
+          style: TextStyle(color: theme.primaryColor, fontSize: 20),
         ),
         actions: [
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.notifications_active)),
-          IconButton(
-              onPressed: () {}, icon: const Icon(Icons.more_vert_outlined)),
+          Builder(
+            builder: (context) => IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: const Icon(Icons.more_vert_outlined)),
+          ),
         ],
       ),
+      drawer: const DrawerS(),
       body: widgetOptions.elementAt(_selectedindex),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey,

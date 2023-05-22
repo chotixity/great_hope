@@ -20,7 +20,10 @@ class CustomButtton extends StatelessWidget {
         minimumSize: MaterialStatePropertyAll<Size>(
             Size(MediaQuery.of(context).size.width * .9, 30)),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.white),
+      ),
     );
   }
 }

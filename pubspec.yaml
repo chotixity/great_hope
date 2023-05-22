@@ -40,6 +40,7 @@ dependencies:
   firebase_auth: ^4.6.1
   cloud_firestore: ^4.7.1
   provider: ^6.0.5
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,9 @@ flutter:
     - assets/images/book-2.png
     - assets/images/book-3.png
     - assets/images/book-4.png
+    - assets/images/Apple Logo.png
+    - assets/images/google logo.png
+    - assets/images/facebook logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

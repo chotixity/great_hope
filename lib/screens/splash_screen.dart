@@ -20,24 +20,22 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const Homescreen(),
+        builder: (context) => const Login(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
-      child: Text(
-        'THE \n GREAT \n HOPE \n MINISTRY \n',
-        textAlign: TextAlign.center,
-        //maxLines: 4,
-        style: TextStyle(
-          backgroundColor: Colors.transparent,
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
+    return const Text(
+      'THE \n GREAT \n HOPE \n MINISTRY \n',
+      textAlign: TextAlign.center,
+      //maxLines: 4,
+      style: TextStyle(
+        backgroundColor: Colors.transparent,
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:great_hope/Auth/Sign_up.dart';
 
 import 'Auth/Login.dart';
 import './screens/splash_screen.dart';
@@ -41,12 +42,13 @@ class MyApp extends StatelessWidget {
               if (snapshot.hasData) {
                 return const Homepage();
               } else {
-                return const Homescreen();
+                return const Login();
               }
             }),
       ),
       routes: {
         Homepage.routeName: (context) => const Homepage(),
+        SignUp.routeName: (context) => const SignUp(),
       },
     );
   }

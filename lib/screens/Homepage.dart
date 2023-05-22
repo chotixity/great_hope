@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/Card.dart';
 
 class GHHomepage extends StatelessWidget {
+  static const routeName = 'GHHomepage';
   const GHHomepage({super.key});
 
   @override
@@ -52,11 +53,11 @@ class GHHomepage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Flexible(
               child: Row(
-                children: const [
+                children: [
                   HomepageCard('Charity Event', 'Saturday', '9am to 5pm')
                 ],
               ),
