@@ -5,7 +5,7 @@ import '../models/user.dart';
 
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  late BuildContext context;
   GhUser? _fromfirebase(User? user) {
     return user != null ? GhUser(uid: user.uid) : null;
   }
@@ -16,6 +16,28 @@ class Auth {
   }
 
   // sign in with e-mail
+  Future signIn(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('No user found for that email'),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Wrong password provided for the user'),
+          ),
+        );
+      }
+    }
+  }
 
   // anonyous sign in
   Future AnonySignIn() async {

@@ -19,6 +19,7 @@ class _LoginState extends State<Login> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
   late bool _passWordVisible;
+  var AuthInstance = Auth();
 
   void initState() {
     _passWordVisible = false;
@@ -34,6 +35,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: Column(
@@ -109,27 +111,9 @@ class _LoginState extends State<Login> {
                 style: TextStyle(color: theme.primaryColor),
               ),
             ),
-            CustomButtton('Login', () async {
-              try {
-                await _auth.signInWithEmailAndPassword(
-                  email: _emailcontroller.text.trim(),
-                  password: _passwordcontroller.text.trim(),
-                );
-              } on FirebaseAuthException catch (e) {
-                if (e.code == 'user-not-found') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('No user found for that email'),
-                    ),
-                  );
-                } else if (e.code == 'wrong-password') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Wrong password provided for the user'),
-                    ),
-                  );
-                }
-              }
+            CustomButtton('Login', () {
+              AuthInstance.signIn(_emailcontroller.text.trim(),
+                  _passwordcontroller.text.trim());
             }),
             const SizedBox(
               height: 20,
@@ -158,7 +142,7 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Don\'t have an accout? '),
+                const Text('Don\'t have an accout? '),
                 TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, SignUp.routeName);

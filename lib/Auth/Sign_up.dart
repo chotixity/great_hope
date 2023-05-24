@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../Auth/storage.dart';
 import 'package:great_hope/widgets/bottom_bar.dart';
 import 'package:great_hope/widgets/custom_button.dart';
 
@@ -18,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-
+  final _firestoreInstance = Firestore();
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -144,7 +146,13 @@ class _SignUpState extends State<SignUp> {
                     email: _emailController.text.trim(),
                     password: _passwordController.text.trim(),
                   );
-                  Navigator.of(context).pushNamed(Homepage.routeName);
+                  _firestoreInstance.addUserDetails(
+                    _firstNameController.text.trim(),
+                    _lastNameController.text.trim(),
+                    _phoneController.text.trim(),
+                    _emailController.text.trim(),
+                  );
+                  Navigator.of(context).pushReplacementNamed(Homepage.routeName);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
