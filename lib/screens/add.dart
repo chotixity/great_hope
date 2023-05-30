@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:great_hope/provider/eventProvider.dart';
+import 'package:provider/provider.dart';
 import 'dart:io';
 
 import '../widgets/event_widget_add.dart';
@@ -28,6 +30,9 @@ class Add extends StatelessWidget {
             );
           }),
           Event(Icons.library_books_outlined, 'add a document', () {
+            final date = Provider.of<EventProvider>(context, listen: false)
+                .formatDate(DateTime.now());
+            print(date);
             showBottomSheet(
                 context: context,
                 builder: ((BuildContext context) {

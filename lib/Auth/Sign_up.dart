@@ -21,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _firestoreInstance = Firestore();
+
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -152,7 +153,8 @@ class _SignUpState extends State<SignUp> {
                     _phoneController.text.trim(),
                     _emailController.text.trim(),
                   );
-                  Navigator.of(context).pushReplacementNamed(Homepage.routeName);
+                  Navigator.of(context)
+                      .pushReplacementNamed(Homepage.routeName);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

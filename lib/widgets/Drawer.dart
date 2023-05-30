@@ -16,17 +16,16 @@ class DrawerS extends StatefulWidget {
 }
 
 class _DrawerSState extends State<DrawerS> {
-  File? _image;
+  File? image;
 
   Future _pickImage() async {
     try {
       final image =
           await ImagePicker.platform.pickImage(source: ImageSource.gallery);
       if (image == null) return;
-      File? img = await saveImagePermanently(image.path);
-
+      final img = await saveImagePermanently(image.path);
       setState(() {
-        _image = img;
+        this.image = img;
       });
     } on PlatformException catch (e) {
       print(e);
@@ -36,7 +35,7 @@ class _DrawerSState extends State<DrawerS> {
   Future<File> saveImagePermanently(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
     final name = basename(imagePath);
-    final image = File('$directory/$name');
+    final image = File('${directory.path}/$name');
 
     return File(imagePath).copy(image.path);
   }
@@ -53,14 +52,14 @@ class _DrawerSState extends State<DrawerS> {
           children: [
             GestureDetector(
               onTap: _pickImage,
-              child: _image == null
+              child: image == null
                   ? FlutterLogo(
                       size: 100,
                     )
                   : CircleAvatar(
                       radius: 100,
                       backgroundImage: FileImage(
-                        _image!,
+                        image!,
                       ) as ImageProvider),
             ),
             const SizedBox(
