@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class EventTile extends StatelessWidget {
   final String title;
   final String time;
-  const EventTile(this.title, this.time, {super.key});
+  final String location;
+  const EventTile(this.title, this.location, this.time, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class EventTile extends StatelessWidget {
       ),
       child: ListTile(
         title: Text(title),
+        subtitle: Text(location),
         trailing: Text(
           time,
           style: TextStyle(color: theme.primaryColor, fontSize: 18),

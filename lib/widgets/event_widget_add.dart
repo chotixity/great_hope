@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class Event extends StatelessWidget {
+class EventWidget extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback ontap;
-  const Event(this.icon, this.text, this.ontap, {super.key});
+  const EventWidget(this.icon, this.text, this.ontap, {super.key});
 
   @override
   Widget build(BuildContext context) {
