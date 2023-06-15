@@ -1,10 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../provider/eventProvider.dart';
 import 'package:provider/provider.dart';
 import '../widgets/event_widget_add.dart';
-import '../models/event.dart';
 import '../Auth/storage.dart';
 import 'package:file_picker/file_picker.dart';
 
@@ -16,6 +16,8 @@ class Add extends StatefulWidget {
 }
 
 class _AddState extends State<Add> {
+  PlatformFile? pickedFile;
+
   final eventName = TextEditingController();
   final eventLocation = TextEditingController();
   final date = TextEditingController();
@@ -98,9 +100,19 @@ class _AddState extends State<Add> {
                               eventLocation.text.isNotEmpty &&
                               date.text.isNotEmpty) {
                             // provider.addEvent(newEvent);
-                            _firesoreInstance.addEvent(
-                                eventName.text, eventLocation.text, date.text);
+                            _firesoreInstance
+                                .addEvent(eventName.text, eventLocation.text,
+                                    date.text)
+                                .then(
+                                  (value) => ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Event Added Successfully'),
+                                    ),
+                                  ),
+                                );
                           }
+
                           Navigator.of(context).pop();
                         },
                         child: const Text('Save Event'),
@@ -117,22 +129,58 @@ class _AddState extends State<Add> {
                 builder: ((BuildContext context) {
                   return Container(
                     height: 300,
+                    width: double.infinity,
                     color: Colors.white,
-                    child: Flexible(
-                      child: Column(
-                        children: [
-                          TextField(),
-                          TextButton(
-                              onPressed: () async {
-                                final result =
-                                    await FilePicker.platform.pickFiles();
-                                if (result == null) return;
-                                final file = result;
-                                print(file.names);
-                              },
-                              child: const Text('Pick Document'))
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        TextButton(
+                          onPressed: () async {
+                            final result = await FilePicker.platform.pickFiles(
+                              allowedExtensions: ['pdf'],
+                              type: FileType.custom,
+                            );
+                            if (result == null) return;
+
+                            setState(() {
+                              pickedFile = result.files.first;
+                            });
+                          },
+                          child: const Text('Pick Document'),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        pickedFile == null
+                            ? const Text('You haven\'t picked a document')
+                            : Text(
+                                'You have picked ${pickedFile!.name}',
+                              ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            _firesoreInstance
+                                .uploadFile(
+                                  pickedFile!.path!,
+                                  pickedFile!.name,
+                                )
+                                .then(
+                                  (value) => ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Upload Successful'),
+                                    ),
+                                  ),
+                                );
+                            setState(() {
+                              pickedFile = null;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('save File'),
+                        ),
+                      ],
                     ),
                   );
                 }));

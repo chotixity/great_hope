@@ -13,6 +13,11 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
+enum Gender {
+  male,
+  female,
+}
+
 class _SignUpState extends State<SignUp> {
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -21,6 +26,7 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _firestoreInstance = Firestore();
+  Gender? _gender = Gender.male;
 
   @override
   void dispose() {
@@ -141,6 +147,47 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(
                 height: 20,
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .4,
+                    child: ListTile(
+                      title: const Text(
+                        'Male',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      leading: Radio<Gender>(
+                        value: Gender.male,
+                        groupValue: _gender,
+                        onChanged: (Gender? Value) {
+                          setState(() {
+                            _gender = Value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .45,
+                    child: ListTile(
+                      title: const Text(
+                        'Female',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      leading: Radio<Gender>(
+                        value: Gender.female,
+                        groupValue: _gender,
+                        onChanged: (Gender? Value) {
+                          setState(() {
+                            _gender = Value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               CustomButtton('Next', () async {
                 if (confirmPassword()) {
                   await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -152,6 +199,7 @@ class _SignUpState extends State<SignUp> {
                     _lastNameController.text.trim(),
                     _phoneController.text.trim(),
                     _emailController.text.trim(),
+                    _gender.toString(),
                   );
                   Navigator.of(context)
                       .pushReplacementNamed(Homepage.routeName);

@@ -31,7 +31,7 @@ class _HomepageState extends State<Homepage> {
       const GHHomepage(),
       const Events(),
       const Add(),
-      const Library(),
+      Library(),
     ];
 
     return Scaffold(

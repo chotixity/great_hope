@@ -42,6 +42,7 @@ class _DrawerSState extends State<DrawerS> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -50,17 +51,32 @@ class _DrawerSState extends State<DrawerS> {
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: _pickImage,
-              child: image == null
-                  ? FlutterLogo(
-                      size: 100,
-                    )
-                  : CircleAvatar(
-                      radius: 100,
-                      backgroundImage: FileImage(
-                        image!,
-                      ) as ImageProvider),
+            Stack(
+              children: [
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: image == null
+                      ? const FlutterLogo(
+                          size: 100,
+                        )
+                      : CircleAvatar(
+                          radius: 100,
+                          backgroundImage: FileImage(
+                            image!,
+                          ) as ImageProvider),
+                ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: CircleAvatar(
+                    backgroundColor: theme.primaryColor,
+                    child: const Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
             const SizedBox(
               height: 30,

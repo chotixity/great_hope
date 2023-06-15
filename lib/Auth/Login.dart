@@ -112,8 +112,10 @@ class _LoginState extends State<Login> {
               ),
             ),
             CustomButtton('Login', () {
-              AuthInstance.signIn(_emailcontroller.text.trim(),
-                  _passwordcontroller.text.trim());
+              AuthInstance.signIn(
+                _emailcontroller.text.trim(),
+                _passwordcontroller.text.trim(),
+              );
             }),
             const SizedBox(
               height: 20,
