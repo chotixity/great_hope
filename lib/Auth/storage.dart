@@ -36,6 +36,8 @@ class Firestore {
     });
   }
 
+  void deleteEvent() {}
+
   Future<void> uploadFile(String filePath, String fileName) async {
     File file = File(filePath);
 
@@ -57,9 +59,14 @@ class Firestore {
     }
   }
 
-  Future<ListResult> listFiles() async {
-    ListResult result = await storageRef.child('Books/uid').listAll();
-    result.items.forEach((element) => print(element.name));
-    return result;
+  Future listFiles() async {
+    try {
+      ListResult result = await storageRef.child('Books/uid').listAll();
+      result.items.forEach((element) => print(element.name));
+      return result;
+    } on FirebaseException catch (e) {
+      print(e.toString());
+      return const Text("An error occured");
+    }
   }
 }

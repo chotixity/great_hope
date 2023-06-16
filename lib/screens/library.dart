@@ -16,7 +16,7 @@ class _LibraryState extends State<Library> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: storageinstance.listFiles(),
-        builder: (BuildContext context, AsyncSnapshot<ListResult> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
           try {
             if (snapshot.hasData &&
                 snapshot.connectionState == ConnectionState.done) {

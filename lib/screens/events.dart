@@ -16,8 +16,10 @@ class Events extends StatefulWidget {
 class _EventsState extends State<Events> {
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _eventStream =
-        FirebaseFirestore.instance.collection("Events").snapshots();
+    final Stream<QuerySnapshot> _eventStream = FirebaseFirestore.instance
+        .collection("Events")
+        .where('date', isGreaterThan: DateFormat.yMd().format(DateTime.now()))
+        .snapshots();
     final provider = Provider.of<EventProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -36,6 +38,8 @@ class _EventsState extends State<Events> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
+              List<Map<String, dynamic>> data1 = [];
+              if (DateTime(data['date']).compareTo(DateTime.now()) < 0) {}
               return EventTile(
                 data['eventName'],
                 data['location'],
