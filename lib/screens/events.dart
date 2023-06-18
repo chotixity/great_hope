@@ -27,7 +27,7 @@ class _EventsState extends State<Events> {
         stream: _eventStream,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('Something went wrong');
+            return const Text('Something went wrong');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -38,8 +38,7 @@ class _EventsState extends State<Events> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-              List<Map<String, dynamic>> data1 = [];
-              if (DateTime(data['date']).compareTo(DateTime.now()) < 0) {}
+
               return EventTile(
                 data['eventName'],
                 data['location'],

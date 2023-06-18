@@ -47,9 +47,10 @@ class _DrawerSState extends State<DrawerS> {
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 50,
+          horizontal: 15,
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Stack(
               children: [
@@ -81,7 +82,63 @@ class _DrawerSState extends State<DrawerS> {
             const SizedBox(
               height: 30,
             ),
-            const Text('You are Logged in as '),
+            FirebaseAuth.instance.currentUser != null
+                ? Text(
+                    '${FirebaseAuth.instance.currentUser?.email}',
+                    style: const TextStyle(fontSize: 20),
+                  )
+                : const Text(''),
+            const Divider(
+              color: Colors.black,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'check',
+                textAlign: TextAlign.start,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Events',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'Contributions',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              color: Colors.black,
+            ),
             ElevatedButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
