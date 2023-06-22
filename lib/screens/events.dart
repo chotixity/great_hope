@@ -7,6 +7,7 @@ import '../provider/eventProvider.dart';
 import '../widgets/eventtile.dart';
 
 class Events extends StatefulWidget {
+  static const routeName = '/events';
   const Events({super.key});
 
   @override
@@ -21,32 +22,34 @@ class _EventsState extends State<Events> {
         .where('date', isGreaterThan: DateFormat.yMd().format(DateTime.now()))
         .snapshots();
     final provider = Provider.of<EventProvider>(context);
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: StreamBuilder<QuerySnapshot>(
-        stream: _eventStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Text('Something went wrong');
-          }
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: _eventStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
 
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
 
-          return ListView(
-            children: snapshot.data!.docs.map((DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
+            return ListView(
+              children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
 
-              return EventTile(
-                data['eventName'],
-                data['location'],
-                data['date'],
-              );
-            }).toList(),
-          );
-        },
+                return EventTile(
+                  data['eventName'],
+                  data['location'],
+                  data['date'],
+                );
+              }).toList(),
+            );
+          },
+        ),
       ),
     );
   }

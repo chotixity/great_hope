@@ -9,6 +9,7 @@ import './Auth/Sign_up.dart';
 import './provider/eventProvider.dart';
 import './screens/splash_screen.dart';
 import 'widgets/bottom_bar.dart';
+import '/screens/events.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
       routes: {
         Homepage.routeName: (context) => const Homepage(),
         SignUp.routeName: (context) => const SignUp(),
+        Events.routeName: (context) => const Events(),
       },
     );
   }

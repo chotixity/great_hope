@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:flutter/services.dart';
+import '../screens/events.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -69,11 +70,14 @@ class _DrawerSState extends State<DrawerS> {
                 Positioned(
                   right: 0,
                   bottom: 0,
-                  child: CircleAvatar(
-                    backgroundColor: theme.primaryColor,
-                    child: const Icon(
-                      Icons.edit,
-                      color: Colors.white,
+                  child: GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      backgroundColor: theme.primaryColor,
+                      child: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 )
@@ -102,23 +106,25 @@ class _DrawerSState extends State<DrawerS> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Align(
               alignment: Alignment.bottomLeft,
               child: Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(Events.routeName);
+                  },
                   child: const Text(
-                    'Events',
+                    'Settings',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Align(
               alignment: Alignment.bottomLeft,
@@ -134,10 +140,39 @@ class _DrawerSState extends State<DrawerS> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             const Divider(
               color: Colors.black,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            const Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'About',
+                textAlign: TextAlign.start,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: const Text(
+                    'About Great Hope',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 50,
             ),
             ElevatedButton(
               onPressed: () {
