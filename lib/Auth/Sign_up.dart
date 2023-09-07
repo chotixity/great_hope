@@ -41,10 +41,11 @@ class _SignUpState extends State<SignUp> {
 
   bool confirmPassword() {
     if (_passwordController.text.trim() ==
-        _confirmPasswordController.text.trim())
+        _confirmPasswordController.text.trim()) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   @override

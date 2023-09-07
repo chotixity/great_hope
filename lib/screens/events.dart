@@ -25,31 +25,17 @@ class _EventsState extends State<Events> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: StreamBuilder<QuerySnapshot>(
-          stream: _eventStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Something went wrong');
-            }
-
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
-
-            return ListView(
-              children: snapshot.data!.docs.map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-
-                return EventTile(
-                  data['eventName'],
-                  data['location'],
-                  data['date'],
-                );
-              }).toList(),
-            );
-          },
-        ),
+        child: RefreshIndicator(
+            onRefresh: () => provider.fetchEvents(),
+            child: ListView.builder(
+                itemCount: provider.events.length,
+                itemBuilder: (context, index) {
+                  return EventTile(
+                    provider.events[index].name,
+                    provider.events[index].location,
+                    provider.events[index].date,
+                  );
+                })),
       ),
     );
   }

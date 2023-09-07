@@ -21,24 +21,21 @@ class _DrawerSState extends State<DrawerS> {
 
   Future _pickImage() async {
     try {
-      final image =
-          await ImagePicker.platform.pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker.platform
+          .pickImage(source: ImageSource.gallery, maxWidth: 600);
       if (image == null) return;
-      final img = await saveImagePermanently(image.path);
+      //final img = await saveImagePermanently(image.path);
+
+      final appDir = await getApplicationDocumentsDirectory();
+      final fileName = basename(image.path);
+      final savedImage =
+          await File(image.path).copy('${appDir.path}/$fileName');
       setState(() {
-        this.image = img;
+        this.image = savedImage;
       });
     } on PlatformException catch (e) {
       print(e);
     }
-  }
-
-  Future<File> saveImagePermanently(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
-    final image = File('${directory.path}/$name');
-
-    return File(imagePath).copy(image.path);
   }
 
   @override
@@ -58,14 +55,19 @@ class _DrawerSState extends State<DrawerS> {
                 GestureDetector(
                   onTap: _pickImage,
                   child: image == null
-                      ? const FlutterLogo(
-                          size: 100,
+                      ? const CircleAvatar(
+                          radius: 100,
+                          child: Icon(
+                            Icons.person,
+                            size: 100,
+                          ),
                         )
                       : CircleAvatar(
                           radius: 100,
                           backgroundImage: FileImage(
                             image!,
-                          ) as ImageProvider),
+                          ),
+                        ),
                 ),
                 Positioned(
                   right: 0,

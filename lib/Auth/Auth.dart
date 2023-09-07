@@ -1,36 +1,28 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../models/user.dart';
+import 'package:great_hope/main.dart';
+import '../widgets/bottom_bar.dart';
 
 class Auth {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  late BuildContext context;
-  GhUser? _fromfirebase(User? user) {
-    return user != null ? GhUser(uid: user.uid) : null;
-  }
-
-  //listen to changes and then return them
-  Stream<GhUser?> get user {
-    return _auth.authStateChanges().map(_fromfirebase);
-  }
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // sign in with e-mail
-  Future signIn(String email, String password) async {
+  static Future<void> signIn(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      navigatorKey.currentState!.pushReplacementNamed(Homepage.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
+        messengerkey.currentState!.showSnackBar(
           const SnackBar(
             content: Text('No user found for that email'),
           ),
         );
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
+        messengerkey.currentState!.showSnackBar(
           const SnackBar(
             content: Text('Wrong password provided for the user'),
           ),
@@ -39,15 +31,23 @@ class Auth {
     }
   }
 
-  // anonyous sign in
-  Future AnonySignIn() async {
+  //Forgot Password
+  static Future<void> forgotPassword(String email) async {
     try {
-      UserCredential result = await _auth.signInAnonymously();
-      User user = result.user!;
-      return _fromfirebase(user);
+      await _auth.sendPasswordResetEmail(email: email);
+      messengerkey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text('Password reset email has been sent to $email'),
+        ),
+      );
     } catch (e) {
-      print(e.toString());
-      return null;
+      messengerkey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
     }
   }
+
+  static Future<void> SignUp() async {}
 }

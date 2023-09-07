@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import '../widgets/custom_button.dart';
 import 'Sign_up.dart';
-import '../widgets/bottom_bar.dart';
 import 'Auth.dart';
 
 class Login extends StatefulWidget {
@@ -19,12 +18,13 @@ class _LoginState extends State<Login> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
   late bool _passWordVisible;
-  var AuthInstance = Auth();
 
+  @override
   void initState() {
     _passWordVisible = false;
   }
 
+  @override
   void dispose() {
     _emailcontroller.dispose();
     _passwordcontroller.dispose();
@@ -92,19 +92,8 @@ class _LoginState extends State<Login> {
               height: 20,
             ),
             TextButton(
-              onPressed: () async {
-                try {
-                  await _auth.sendPasswordResetEmail(
-                      email: _emailcontroller.text.trim());
-                } catch (e) {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text(e.toString()),
-                        );
-                      });
-                }
+              onPressed: () {
+                Auth.forgotPassword(_emailcontroller.text.trim());
               },
               child: Text(
                 'Forgot Password?',
@@ -112,7 +101,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             CustomButtton('Login', () {
-              AuthInstance.signIn(
+              Auth.signIn(
                 _emailcontroller.text.trim(),
                 _passwordcontroller.text.trim(),
               );
@@ -146,13 +135,14 @@ class _LoginState extends State<Login> {
               children: [
                 const Text('Don\'t have an accout? '),
                 TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, SignUp.routeName);
-                    },
-                    child: Text(
-                      'Sign up',
-                      style: TextStyle(color: theme.primaryColor),
-                    ))
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignUp.routeName);
+                  },
+                  child: Text(
+                    'Sign up',
+                    style: TextStyle(color: theme.primaryColor),
+                  ),
+                ),
               ],
             )
           ],

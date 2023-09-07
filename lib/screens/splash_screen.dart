@@ -10,32 +10,35 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
   void initState() {
     super.initState();
   }
 
-  void _navigateToHome() async {
-    Future.delayed(const Duration(seconds: 2), () {});
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Login(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      'THE \n GREAT \n HOPE \n MINISTRY \n',
-      textAlign: TextAlign.center,
-      //maxLines: 4,
-      style: TextStyle(
-        backgroundColor: Colors.transparent,
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+    });
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      body: const Center(
+        child: Text(
+          'THE \n GREAT \n HOPE \n MINISTRY \n',
+          textAlign: TextAlign.center,
+          //maxLines: 4,
+          style: TextStyle(
+            backgroundColor: Colors.transparent,
+            color: Colors.white,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
